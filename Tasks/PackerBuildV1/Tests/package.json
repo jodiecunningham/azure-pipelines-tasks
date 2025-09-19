@@ -2,6 +2,7 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/q": "^1.0.7",
-    "@types/node": "^24.5.2"
+    "@types/node": "^16.18.0",
+    "azure-pipelines-task-lib": "^5.2.1"
   }
 }
