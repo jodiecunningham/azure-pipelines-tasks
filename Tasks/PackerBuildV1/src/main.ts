@@ -21,7 +21,12 @@ async function run(): Promise<any> {
 
     // run packer commands
     try {
-        packerFix.run(host);
+        var skipPackerFix = tl.getBoolInput("skipPackerFix", false);
+        if (!skipPackerFix) {
+            packerFix.run(host);
+        } else {
+            tl.debug("Skipping packer fix as per user input");
+        }
         await packerValidate.run(host);
         await packerBuild.run(host);
         console.log(tl.loc("PackerBuildCompleted"));

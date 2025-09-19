@@ -14,7 +14,7 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 1,
-    "Minor": 259,
+    "Minor": 260,
     "Patch": 1
   },
   "demands": [],
@@ -275,6 +275,15 @@
       "defaultValue": "",
       "helpMarkDown": "ms-resource:loc.input.help.imageId",
       "groupName": "Output"
+    },
+    {
+      "name": "skipPackerFix",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.skipPackerFix",
+      "required": false,
+      "defaultValue": false,
+      "helpMarkDown": "ms-resource:loc.input.help.skipPackerFix",
+      "groupName": "Advanced"
     }
   ],
   "dataSourceBindings": [

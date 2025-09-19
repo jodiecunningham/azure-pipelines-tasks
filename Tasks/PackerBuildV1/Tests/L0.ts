@@ -526,6 +526,37 @@ describe('PackerBuild Suite V1', function() {
             }, tr, done);
         });
 
+        it('Should skip packer fix when skipPackerFix is true', (done:MochaDone) => {
+            let tp = path.join(__dirname, 'L0WindowsSkipPackerFix.js');
+            let tr : ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+            tr.run();
+
+            runValidations(() => {
+                assert(tr.invokedToolCount == 3, 'should have invoked tool three times (no packer fix). actual: ' + tr.invokedToolCount);
+                assert(tr.stderr.length == 0 || tr.errorIssues.length, 'should not have written to stderr');
+                assert(tr.succeeded, 'task should have succeeded');
+                assert(tr.stdout.indexOf("packer fix -validate=false") == -1, "packer fix command should not be called");
+                assert(tr.stdout.indexOf("packer validate") != -1, "packer validate command should be called");
+                assert(tr.stdout.indexOf("packer build -force") != -1, "packer build command should be called");
+            }, tr, done);
+        });
+
+        it('Should run packer fix when skipPackerFix is false', (done:MochaDone) => {
+            let tp = path.join(__dirname, 'L0WindowsPackerFixDefault.js');
+            let tr : ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+            tr.run();
+
+            runValidations(() => {
+                assert(tr.invokedToolCount == 4, 'should have invoked tool four times (including packer fix). actual: ' + tr.invokedToolCount);
+                assert(tr.stderr.length == 0 || tr.errorIssues.length, 'should not have written to stderr');
+                assert(tr.succeeded, 'task should have succeeded');
+                assert(tr.stdout.indexOf("packer fix -validate=false") != -1, "packer fix command should be called");
+                assert(tr.stdout.indexOf("packer validate") != -1, "packer validate command should be called");
+                assert(tr.stdout.indexOf("packer build -force") != -1, "packer build command should be called");
+                assert(tr.stdout.indexOf("writing to file F:\\somedir\\tempdir\\100\\default.windows.template-fixed.json content: { \"some-key\": \"some-value\" }") != -1, "packer fix output should be written to fixed template file");
+            }, tr, done);
+        });
+
     } else {
         it('Runs successfully for linux template', (done:MochaDone) => {
             let tp = path.join(__dirname, 'L0Linux.js');

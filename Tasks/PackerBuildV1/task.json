@@ -14,7 +14,7 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 1,
-    "Minor": 259,
+    "Minor": 260,
     "Patch": 1
   },
   "demands": [],
@@ -93,7 +93,6 @@
       "defaultValue": true,
       "groupName": "AzureDetails"
     },
-   
     {
       "name": "managedImageName",
       "type": "string",
@@ -217,7 +216,8 @@
       "defaultValue": "",
       "helpMarkDown": "Specify the arguments to be passed to deployment script.",
       "groupName": "DeploymentInputs"
-    }, {
+    },
+    {
       "name": "canDeleteTempFolder",
       "type": "boolean",
       "label": "Delete temp folder",
@@ -275,6 +275,15 @@
       "defaultValue": "",
       "helpMarkDown": "Provide a name for the output variable which will store the azure resource id for the newly created image.  This is for managed images only.",
       "groupName": "Output"
+    },
+    {
+      "name": "skipPackerFix",
+      "type": "boolean",
+      "label": "Skip packer fix",
+      "required": false,
+      "defaultValue": false,
+      "helpMarkDown": "Skip running packer fix command. This command updates the template to work with the latest version of Packer, but may not be needed for all templates.",
+      "groupName": "Advanced"
     }
   ],
   "dataSourceBindings": [
